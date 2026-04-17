@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>GodWilling | International Proxy Shopping</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #fefaf5;
+            color: #1e1e2a;
+            line-height: 1.5;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem;
+        }
+
+        /* 头部区域: 左上角品牌 + 右上角艺术字 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid #e6d5c3;
+            padding-bottom: 1.5rem;
+        }
+
+        /* 左侧扁体 GODWILLING */
+        .brand {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-weight: 600;
+            font-size: 2rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #2c3e2f, #4a6b3f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            font-stretch: condensed;
+            font-style: normal;
+            /* 扁体效果: 通过 transform: scaleY(0.85) 让字形更扁平 */
+            transform: scaleY(0.85);
+            transform-origin: left center;
+            display: inline-block;
+            line-height: 1.2;
+        }
+
+        /* 右侧艺术字 GW. */
+        .art-logo {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            font-style: italic;
+            background: radial-gradient(circle at 30% 10%, #b87c4f, #5d3a1a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 12px rgba(0,0,0,0.08);
+            letter-spacing: 2px;
+            transform: rotate(-2deg);
+            border-right: 3px solid #e0b384;
+            padding-right: 1rem;
+            line-height: 1;
+        }
+
+        /* 语言导航 (辅助切换用) */
+        .lang-switch {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        .lang-switch a {
+            text-decoration: none;
+            font-weight: 500;
+            background: #ede3d7;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            color: #3b2c1f;
+            transition: 0.2s;
+        }
+        .lang-switch a:hover {
+            background: #d9c9b8;
+        }
+        .lang-active {
+            background: #b87c4f !important;
+            color: white !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        /* 业务介绍区域: 物品展示卡片网格 */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 2rem 0 1.5rem 0;
+            letter-spacing: -0.3px;
+            border-left: 6px solid #b87c4f;
+            padding-left: 1rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s;
+            border: 1px solid #f0e2d4;
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 32px rgba(0, 0, 0, 0.1);
+        }
+        .product-img {
+            height: 210px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            background-color: #f5ede4;
+        }
+        /* 示意图片: 用纯色+优雅图案模拟商品图，实际可替换真实图片链接，这里用CSS渐变+小图标风格 */
+        .img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            background: linear-gradient(125deg, #f8ede3, #e7d9ce);
+            color: #a57c5c;
+        }
+        .product-info {
+            padding: 1.5rem;
+        }
+        .product-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.2px;
+        }
+        .product-desc {
+            color: #4a3b2c;
+            margin: 0.75rem 0;
+            font-size: 0.95rem;
+        }
+        .price-tag {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #2c5e2a;
+            margin-top: 0.75rem;
+            display: inline-block;
+            background: #eef4e9;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+        }
+        .badge {
+            display: inline-block;
+            background: #b87c4f20;
+            color: #7b4a2a;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            border-top: 1px solid #e6d5c3;
+            padding-top: 2rem;
+            font-size: 0.85rem;
+            color: #7a6a58;
+        }
+        @media (max-width: 680px) {
+            .container { padding: 1rem; }
+            .brand { font-size: 1.5rem; }
+            .art-logo { font-size: 2rem; }
+            .section-title { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- 语言切换辅助 (静态页面但提供链接方便导航) -->
+    <div class="lang-switch">
+        <a href="index.html" class="lang-active">🇬🇧 English</a>
+        <a href="deutsch.html">🇩🇪 Deutsch</a>
+        <a href="arabic.html" dir="auto">🇸🇦 العربية</a>
+    </div>
+
+    <!-- 头部：左上角扁体GODWILLING + 右上角艺术字GW. -->
+    <div class="header">
+        <div class="brand">GODWILLING</div>
+        <div class="art-logo">GW.</div>
+    </div>
+
+    <!-- 主营业务介绍区块 - 物品介绍（英文版） -->
+    <div>
+        <h2 class="section-title">✨ Global Curated Finds — Cross‑border concierge</h2>
+        <p style="margin-bottom: 1.8rem; font-size: 1.1rem; max-width: 80%;">
+            From Tokyo to Milan, Istanbul to New York — GodWilling brings exclusive international products right to your doorstep. 
+            Premium proxy shopping with authentic sourcing, worldwide shipping & dedicated support.
+        </p>
+    </div>
+
+    <!-- 物品卡片列表：展示各类代购热门商品 -->
+    <div class="products-grid">
+        <!-- 商品 1: 意大利手工皮具 -->
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">🧳🇮🇹</div></div>
+            <div class="product-info">
+                <div class="badge">🇮🇹 Italy · Limited</div>
+                <div class="product-title">Florence Leather Tote</div>
+                <div class="product-desc">Handcrafted Tuscan leather, vegetable-tanned. Each piece tells a story of Italian artisanship. Perfect daily tote or business companion.</div>
+                <div class="price-tag">€289 + proxy fee</div>
+            </div>
+        </div>
+        <!-- 商品 2: 日本威士忌 -->
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">🥃🇯🇵</div></div>
+            <div class="product-info">
+                <div class="badge">🇯🇵 Japan · Exclusive</div>
+                <div class="product-title">Yamazaki Distiller’s Reserve</div>
+                <div class="product-desc">Single malt Japanese whisky, renowned for its harmony of fruit and Mizunara oak. Rare find — direct from Osaka.</div>
+                <div class="price-tag">¥16,800 + int'l shipping</div>
+            </div>
+        </div>
+        <!-- 商品 3: 德国厨具 -->
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">🔪🇩🇪</div></div>
+            <div class="product-info">
+                <div class="badge">🇩🇪 Germany · Precision</div>
+                <div class="product-title">Zwilling Pro 7-Piece Knife Set</div>
+                <div class="product-desc">Solingen-forged stainless steel, ice-hardened blades. Ultimate kitchen mastery — sourced directly from German manufacturers.</div>
+                <div class="price-tag">€349 + proxy service</div>
+            </div>
+        </div>
+        <!-- 商品 4: 法国高定香水 -->
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">🌸🇫🇷</div></div>
+            <div class="product-info">
+                <div class="badge">🇫🇷 France · Niche</div>
+                <div class="product-title">Grasse Private Collection Extrait</div>
+                <div class="product-desc">Artisanal perfume from the French Riviera, rare botanical extracts. Limited production, only available via local boutiques.</div>
+                <div class="price-tag">€215 + tax free proxy</div>
+            </div>
+        </div>
+        <!-- 商品 5: 美式复古腕表 -->
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">⌚🇺🇸</div></div>
+            <div class="product-info">
+                <div class="badge">🇺🇸 USA · Vintage</div>
+                <div class="product-title">Bulova Lunar Pilot</div>
+                <div class="product-desc">Heritage chronograph, space legacy. Precision quartz movement. Cross-border sourcing from authorized US dealers.</div>
+                <div class="price-tag">$595 + proxy fee</div>
+            </div>
+        </div>
+        <!-- 商品 6: 土耳其手工地毯 -->
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">🕌🇹🇷</div></div>
+            <div class="product-info">
+                <div class="badge">🇹🇷 Turkey · Anatolian</div>
+                <div class="product-title">Cappadocia Wool Kilim</div>
+                <div class="product-desc">Handwoven by Anatolian women, natural dyes, geometric patterns. Bring the magic of bazaars to your home.</div>
+                <div class="price-tag">$279 + international delivery</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 额外服务说明 + 跨国代购特色 -->
+    <div style="background: #fcf6ef; border-radius: 2rem; padding: 2rem; margin-top: 3rem;">
+        <h3 style="font-size: 1.6rem; margin-bottom: 0.5rem;">🌍 Why GodWilling?</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 1.8rem; margin-top: 1.2rem;">
+            <div style="flex:1; min-width: 180px;"><strong>✓ Authenticity guaranteed</strong><br>Direct purchase from official stores & verified boutiques.</div>
+            <div style="flex:1; min-width: 180px;"><strong>✓ Worldwide consolidation</strong><br>Combine multiple orders, reduce shipping costs.</div>
+            <div style="flex:1; min-width: 180px;"><strong>✓ Personal shopper support</strong><br>Live assistance in English, German, Arabic & more.</div>
+            <div style="flex:1; min-width: 180px;"><strong>✓ Customs expertise</strong><br>We handle documentation for smooth clearance.</div>
+        </div>
+    </div>
+
+    <footer>
+        © 2025 GodWilling International Proxy Shopping — bridging borders, delivering dreams.<br>
+        ✉️ sztugaowenxiang@outlook.com | 📞 +1 (888) 402-9455
+    </footer>
+</div>
+</body>
+</html>

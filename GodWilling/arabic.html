@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>GodWilling | خدمات التسوق الدولي بالنيابة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Cairo', system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif;
+            background: #fefaf5;
+            color: #1e1e2a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid #e6d5c3;
+            padding-bottom: 1.5rem;
+        }
+
+        .brand {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-weight: 600;
+            font-size: 2rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #2c3e2f, #4a6b3f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            transform: scaleY(0.85);
+            transform-origin: right center;
+            display: inline-block;
+            line-height: 1.2;
+        }
+
+        .art-logo {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            font-style: italic;
+            background: radial-gradient(circle at 30% 10%, #b87c4f, #5d3a1a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 12px rgba(0,0,0,0.08);
+            letter-spacing: 2px;
+            transform: rotate(2deg);
+            border-left: 3px solid #e0b384;
+            padding-left: 1rem;
+            line-height: 1;
+        }
+
+        .lang-switch {
+            display: flex;
+            justify-content: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        .lang-switch a {
+            text-decoration: none;
+            font-weight: 500;
+            background: #ede3d7;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            color: #3b2c1f;
+            transition: 0.2s;
+        }
+        .lang-switch a:hover {
+            background: #d9c9b8;
+        }
+        .lang-active {
+            background: #b87c4f !important;
+            color: white !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 2rem 0 1.5rem 0;
+            letter-spacing: -0.3px;
+            border-right: 6px solid #b87c4f;
+            padding-right: 1rem;
+            text-align: right;
+        }
+
+        .intro-text {
+            margin-bottom: 1.8rem;
+            font-size: 1.1rem;
+            text-align: right;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s;
+            border: 1px solid #f0e2d4;
+            text-align: right;
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 32px rgba(0, 0, 0, 0.1);
+        }
+        .product-img {
+            height: 210px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            background-color: #f5ede4;
+        }
+        .img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            background: linear-gradient(125deg, #f8ede3, #e7d9ce);
+            color: #a57c5c;
+        }
+        .product-info {
+            padding: 1.5rem;
+        }
+        .product-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.2px;
+        }
+        .product-desc {
+            color: #4a3b2c;
+            margin: 0.75rem 0;
+            font-size: 0.95rem;
+        }
+        .price-tag {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #2c5e2a;
+            margin-top: 0.75rem;
+            display: inline-block;
+            background: #eef4e9;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+        }
+        .badge {
+            display: inline-block;
+            background: #b87c4f20;
+            color: #7b4a2a;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .feature-section {
+            background: #fcf6ef;
+            border-radius: 2rem;
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: right;
+        }
+        .feature-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            margin-top: 1.2rem;
+        }
+        .feature-item {
+            flex: 1;
+            min-width: 180px;
+        }
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            border-top: 1px solid #e6d5c3;
+            padding-top: 2rem;
+            font-size: 0.85rem;
+            color: #7a6a58;
+        }
+        @media (max-width: 680px) {
+            .container { padding: 1rem; }
+            .brand { font-size: 1.5rem; }
+            .art-logo { font-size: 2rem; }
+            .section-title { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="lang-switch">
+        <a href="index.html">🇬🇧 English</a>
+        <a href="deutsch.html">🇩🇪 Deutsch</a>
+        <a href="arabic.html" class="lang-active" dir="ltr">🇸🇦 العربية</a>
+    </div>
+
+    <div class="header">
+        <div class="art-logo">GW.</div>
+        <div class="brand">GODWILLING</div>
+    </div>
+
+    <div>
+        <h2 class="section-title">✨ كنوز عالمية منقاة — خدمة concierge عبر الحدود</h2>
+        <p class="intro-text">
+            من طوكيو إلى ميلانو، ومن إسطنبول إلى نيويورك — شركة GodWilling تجلب المنتجات الدولية الحصرية مباشرة إلى عتبة داركم.
+            خدمة تسوق بالنيابة متميزة، مع توريد أصلي، وشحن عالمي، ودعم مخصص.
+        </p>
+    </div>
+
+    <div class="products-grid">
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">🧳🇮🇹</div></div>
+            <div class="product-info">
+                <div class="badge">🇮🇹 إيطاليا · إصدار محدود</div>
+                <div class="product-title">حقيبة فلورنسا الجلدية</div>
+                <div class="product-desc">جلد توسكاني مصنوع يدويًا، مدبوغ نباتيًا. كل قطعة تحكي قصة الحرفية الإيطالية. حقيبة يومية مثالية أو رفيق العمل.</div>
+                <div class="price-tag">€289 + رسوم الوساطة</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">🥃🇯🇵</div></div>
+            <div class="product-info">
+                <div class="badge">🇯🇵 اليابان · حصري</div>
+                <div class="product-title">ويسكي يامازاكي</div>
+                <div class="product-desc">ويسكي ياباني مفرد الشعير، يشتهر بتناغم الفواكه وخشب الميزونارا. قطعة نادرة — مباشرة من أوساكا.</div>
+                <div class="price-tag">¥16,800 + شحن دولي</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">🔪🇩🇪</div></div>
+            <div class="product-info">
+                <div class="badge">🇩🇪 ألمانيا · دقة</div>
+                <div class="product-title">طقم سكاكين Zwilling Pro 7 قطع</div>
+                <div class="product-desc">فولاذ مقاوم للصدأ مطروق في زولينغن، شفرات مقسّاة بالجليد. إتقان المطبخ الأقصى — يتم شراؤها مباشرة من الشركات المصنعة الألمانية.</div>
+                <div class="price-tag">€349 + رسوم الخدمة</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">🌸🇫🇷</div></div>
+            <div class="product-info">
+                <div class="badge">🇫🇷 فرنسا · متخصص</div>
+                <div class="product-title">عطر جراس Private Collection</div>
+                <div class="product-desc">عطر حرفي من الريفيرا الفرنسية، مستخلصات نباتية نادرة. إنتاج محدود، متوفر فقط عبر المحلات المحلية.</div>
+                <div class="price-tag">€215 + وساطة معفاة من الضرائب</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">⌚🇺🇸</div></div>
+            <div class="product-info">
+                <div class="badge">🇺🇸 أمريكا · كلاسيكي</div>
+                <div class="product-title">بولوفا لونار بايلوت</div>
+                <div class="product-desc">ساعة كرونوغراف تراثية، إرث فضائي. حركة كوارتز دقيقة. توريد من وكلاء أمريكيين معتمدين.</div>
+                <div class="price-tag">$595 + رسوم الوساطة</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">🕌🇹🇷</div></div>
+            <div class="product-info">
+                <div class="badge">🇹🇷 تركيا · أناضولي</div>
+                <div class="product-title">كليم كابادوكيا الصوفي</div>
+                <div class="product-desc">منسوج يدويًا من قبل نساء الأناضول، أصباغ طبيعية، أنماط هندسية. اجلب سحر الأسواق إلى منزلك.</div>
+                <div class="price-tag">$279 + توصيل دولي</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-section">
+        <h3 style="font-size: 1.6rem; margin-bottom: 0.5rem;">🌍 لماذا GodWilling؟</h3>
+        <div class="feature-grid">
+            <div class="feature-item"><strong>✓ ضمان الأصالة</strong><br>شراء مباشر من المتاجر الرسمية والمتاجر المعتمدة.</div>
+            <div class="feature-item"><strong>✓ دمج الشحنات عالميًا</strong><br>ادمج عدة طلبات وقلل تكاليف الشحن.</div>
+            <div class="feature-item"><strong>✓ مساعد تسوق شخصي</strong><br>دعم مباشر بالعربية والإنجليزية والألمانية والمزيد.</div>
+            <div class="feature-item"><strong>✓ خبرة جمركية</strong><br>نتولى المستندات لتخليص سلس.</div>
+        </div>
+    </div>
+
+    <footer>
+        © 2025 GodWilling خدمات التسوق الدولي بالنيابة — ربط الحدود، توصيل الأحلام.<br>
+        ✉️ sztugaowenxiang@outlook.com | 📞 +1 (888) 402-9455
+    </footer>
+</div>
+</body>
+</html>

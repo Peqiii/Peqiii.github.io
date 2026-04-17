@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>GodWilling | Internationaler Einkaufsservice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #fefaf5;
+            color: #1e1e2a;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid #e6d5c3;
+            padding-bottom: 1.5rem;
+        }
+
+        .brand {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-weight: 600;
+            font-size: 2rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #2c3e2f, #4a6b3f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            transform: scaleY(0.85);
+            transform-origin: left center;
+            display: inline-block;
+            line-height: 1.2;
+        }
+
+        .art-logo {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            font-style: italic;
+            background: radial-gradient(circle at 30% 10%, #b87c4f, #5d3a1a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 12px rgba(0,0,0,0.08);
+            letter-spacing: 2px;
+            transform: rotate(-2deg);
+            border-right: 3px solid #e0b384;
+            padding-right: 1rem;
+            line-height: 1;
+        }
+
+        .lang-switch {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        .lang-switch a {
+            text-decoration: none;
+            font-weight: 500;
+            background: #ede3d7;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            color: #3b2c1f;
+            transition: 0.2s;
+        }
+        .lang-switch a:hover {
+            background: #d9c9b8;
+        }
+        .lang-active {
+            background: #b87c4f !important;
+            color: white !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 2rem 0 1.5rem 0;
+            letter-spacing: -0.3px;
+            border-left: 6px solid #b87c4f;
+            padding-left: 1rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s;
+            border: 1px solid #f0e2d4;
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 32px rgba(0, 0, 0, 0.1);
+        }
+        .product-img {
+            height: 210px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            background-color: #f5ede4;
+        }
+        .img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            background: linear-gradient(125deg, #f8ede3, #e7d9ce);
+            color: #a57c5c;
+        }
+        .product-info {
+            padding: 1.5rem;
+        }
+        .product-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.2px;
+        }
+        .product-desc {
+            color: #4a3b2c;
+            margin: 0.75rem 0;
+            font-size: 0.95rem;
+        }
+        .price-tag {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #2c5e2a;
+            margin-top: 0.75rem;
+            display: inline-block;
+            background: #eef4e9;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+        }
+        .badge {
+            display: inline-block;
+            background: #b87c4f20;
+            color: #7b4a2a;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            border-top: 1px solid #e6d5c3;
+            padding-top: 2rem;
+            font-size: 0.85rem;
+            color: #7a6a58;
+        }
+        @media (max-width: 680px) {
+            .container { padding: 1rem; }
+            .brand { font-size: 1.5rem; }
+            .art-logo { font-size: 2rem; }
+            .section-title { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="lang-switch">
+        <a href="index.html">🇬🇧 English</a>
+        <a href="deutsch.html" class="lang-active">🇩🇪 Deutsch</a>
+        <a href="arabic.html" dir="auto">🇸🇦 العربية</a>
+    </div>
+
+    <div class="header">
+        <div class="brand">GODWILLING</div>
+        <div class="art-logo">GW.</div>
+    </div>
+
+    <div>
+        <h2 class="section-title">✨ Kuratierte Schätze weltweit — Grenzüberschreitender Concierge-Service</h2>
+        <p style="margin-bottom: 1.8rem; font-size: 1.1rem; max-width: 80%;">
+            Von Tokio bis Mailand, Istanbul bis New York – GodWilling bringt exklusive internationale Produkte direkt zu Ihnen nach Hause.
+            Premium-Einkaufsdienst mit authentischer Beschaffung, weltweitem Versand und engagierter Unterstützung.
+        </p>
+    </div>
+
+    <div class="products-grid">
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">🧳🇮🇹</div></div>
+            <div class="product-info">
+                <div class="badge">🇮🇹 Italien · limitiert</div>
+                <div class="product-title">Florenz Leder-Tote</div>
+                <div class="product-desc">Handgefertigtes toskanisches Leder, pflanzlich gegerbt. Jedes Stück erzählt die Geschichte italienischer Handwerkskunst. Perfekte Alltagstasche oder Business-Begleiter.</div>
+                <div class="price-tag">€289 + Servicegebühr</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">🥃🇯🇵</div></div>
+            <div class="product-info">
+                <div class="badge">🇯🇵 Japan · Exklusiv</div>
+                <div class="product-title">Yamazaki Distiller’s Reserve</div>
+                <div class="product-desc">Single Malt japanischer Whisky, bekannt für die Harmonie von Frucht und Mizunara-Eiche. Seltenes Fundstück – direkt aus Osaka.</div>
+                <div class="price-tag">¥16.800 + internationaler Versand</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">🔪🇩🇪</div></div>
+            <div class="product-info">
+                <div class="badge">🇩🇪 Deutschland · Präzision</div>
+                <div class="product-title">Zwilling Pro 7-teiliges Messerset</div>
+                <div class="product-desc">In Solingen geschmiedeter Edelstahl, eisgehärtete Klingen. Höchste Kochkunst – direkt von deutschen Herstellern bezogen.</div>
+                <div class="price-tag">€349 + Servicepauschale</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">🌸🇫🇷</div></div>
+            <div class="product-info">
+                <div class="badge">🇫🇷 Frankreich · Nische</div>
+                <div class="product-title">Grasse Private Collection Extrait</div>
+                <div class="product-desc">Artisanal Parfum von der Côte d‘Azur, seltene pflanzliche Extrakte. Kleine Auflage, nur über lokale Boutiquen erhältlich.</div>
+                <div class="price-tag">€215 + steuerfreier Proxy-Service</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">⌚🇺🇸</div></div>
+            <div class="product-info">
+                <div class="badge">🇺🇸 USA · Vintage</div>
+                <div class="product-title">Bulova Lunar Pilot</div>
+                <div class="product-desc">Heritage-Chronograph mit Weltraumlegacy. Präzises Quarzwerk. Beschaffung von autorisierten US-Händlern.</div>
+                <div class="price-tag">$595 + Vermittlungsgebühr</div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-img"><div class="img-placeholder">🕌🇹🇷</div></div>
+            <div class="product-info">
+                <div class="badge">🇹🇷 Türkei · Anatolisch</div>
+                <div class="product-title">Kappadokien Wolle-Kilim</div>
+                <div class="product-desc">Handgewebt von anatolischen Frauen, natürliche Farbstoffe, geometrische Muster. Bringen Sie den Zauber der Basare nach Hause.</div>
+                <div class="price-tag">$279 + internationale Lieferung</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="background: #fcf6ef; border-radius: 2rem; padding: 2rem; margin-top: 3rem;">
+        <h3 style="font-size: 1.6rem; margin-bottom: 0.5rem;">🌍 Warum GodWilling?</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 1.8rem; margin-top: 1.2rem;">
+            <div style="flex:1; min-width: 180px;"><strong>✓ Echtheitsgarantie</strong><br>Direkter Kauf bei offiziellen Geschäften und zertifizierten Boutiquen.</div>
+            <div style="flex:1; min-width: 180px;"><strong>✓ Weltweite Konsolidierung</strong><br>Kombinieren Sie mehrere Bestellungen, senken Sie die Versandkosten.</div>
+            <div style="flex:1; min-width: 180px;"><strong>✓ Persönlicher Einkaufsassistent</strong><br>Live-Unterstützung auf Deutsch, Englisch, Arabisch & mehr.</div>
+            <div style="flex:1; min-width: 180px;"><strong>✓ Zoll-Expertise</strong><br>Wir kümmern uns um die Dokumentation für eine reibungslose Abfertigung.</div>
+        </div>
+    </div>
+
+    <footer>
+        © 2025 GodWilling Internationaler Einkaufsservice — Grenzen überbrücken, Träume liefern.<br>
+        ✉️ sztugaowenxiang@outlook.com | 📞 +1 (888) 402-9455
+    </footer>
+</div>
+</body>
+</html>
