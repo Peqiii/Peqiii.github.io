@@ -62,10 +62,31 @@
             color: transparent;
             text-shadow: 2px 2px 12px rgba(0,0,0,0.08);
             letter-spacing: 2px;
-            transform: rotate(2deg);
+            transform: rotate(-2deg);
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            /* RTL适配：原本的border-right改为border-left */
             border-left: 3px solid #e0b384;
             padding-left: 1rem;
-            line-height: 1;
+            /* 移除原来的padding-right和border-right */
+            padding-right: 0;
+            border-right: none;
+        }
+
+        /* RTL语言环境下的伪元素（图片显示在文字左侧，即视觉上的右侧） */
+        .art-logo::after {
+            content: "";
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-image: url('/GodWilling/img/cn.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            /* RTL下图片自然出现在文字右侧 */
+            transform: rotate(2deg);
         }
 
         .lang-switch {
@@ -223,8 +244,8 @@
     </div>
 
     <div class="header">
-        <div class="art-logo">GW.</div>
-        <div class="brand">GODWILLING</div>
+        <div class="brand">GodWilling</div>
+        <div class="art-logo">.WG</div>
     </div>
 
     <div>
@@ -237,7 +258,7 @@
 
     <div class="products-grid">
         <div class="product-card">
-            <div class="product-img"><div class="img-placeholder">🧳🇮🇹</div></div>
+            <div class="product-img"><div class="img-placeholder">🧳</div></div>
             <div class="product-info">
                 <div class="badge">🇮🇹 إيطاليا · إصدار محدود</div>
                 <div class="product-title">حقيبة فلورنسا الجلدية</div>
@@ -246,7 +267,7 @@
             </div>
         </div>
         <div class="product-card">
-            <div class="product-img"><div class="img-placeholder">🥃🇯🇵</div></div>
+            <div class="product-img"><div class="img-placeholder">🥃</div></div>
             <div class="product-info">
                 <div class="badge">🇯🇵 اليابان · حصري</div>
                 <div class="product-title">ويسكي يامازاكي</div>
@@ -255,7 +276,7 @@
             </div>
         </div>
         <div class="product-card">
-            <div class="product-img"><div class="img-placeholder">🔪🇩🇪</div></div>
+            <div class="product-img"><div class="img-placeholder">🔪</div></div>
             <div class="product-info">
                 <div class="badge">🇩🇪 ألمانيا · دقة</div>
                 <div class="product-title">طقم سكاكين Zwilling Pro 7 قطع</div>
@@ -264,7 +285,7 @@
             </div>
         </div>
         <div class="product-card">
-            <div class="product-img"><div class="img-placeholder">🌸🇫🇷</div></div>
+            <div class="product-img"><div class="img-placeholder">🌸</div></div>
             <div class="product-info">
                 <div class="badge">🇫🇷 فرنسا · متخصص</div>
                 <div class="product-title">عطر جراس Private Collection</div>
@@ -273,7 +294,7 @@
             </div>
         </div>
         <div class="product-card">
-            <div class="product-img"><div class="img-placeholder">⌚🇺🇸</div></div>
+            <div class="product-img"><div class="img-placeholder">⌚</div></div>
             <div class="product-info">
                 <div class="badge">🇺🇸 أمريكا · كلاسيكي</div>
                 <div class="product-title">بولوفا لونار بايلوت</div>
@@ -282,7 +303,7 @@
             </div>
         </div>
         <div class="product-card">
-            <div class="product-img"><div class="img-placeholder">🕌🇹🇷</div></div>
+            <div class="product-img"><div class="img-placeholder">🕌</div></div>
             <div class="product-info">
                 <div class="badge">🇹🇷 تركيا · أناضولي</div>
                 <div class="product-title">كليم كابادوكيا الصوفي</div>

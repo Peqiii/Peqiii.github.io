@@ -66,6 +66,24 @@
             border-right: 3px solid #e0b384;
             padding-right: 1rem;
             line-height: 1;
+            /* 新增：使用伪元素在字体右侧展示图片 */
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .art-logo::after {
+            content: "";
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-image: url('/GodWilling/img/cn.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-left: 12px;
+            /* 确保图片跟随文字旋转方向微调，保持视觉平衡 */
+            transform: rotate(2deg);
         }
 
         .lang-switch {
@@ -212,7 +230,7 @@
 
     <div class="products-grid">
         <div class="product-card">
-            <div class="product-img"><div class="img-placeholder">🧳🇮🇹</div></div>
+            <div class="product-img"><div class="img-placeholder">🧳</div></div>
             <div class="product-info">
                 <div class="badge">🇮🇹 Italien · limitiert</div>
                 <div class="product-title">Florenz Leder-Tote</div>
@@ -221,7 +239,7 @@
             </div>
         </div>
         <div class="product-card">
-            <div class="product-img"><div class="img-placeholder">🥃🇯🇵</div></div>
+            <div class="product-img"><div class="img-placeholder">🥃</div></div>
             <div class="product-info">
                 <div class="badge">🇯🇵 Japan · Exklusiv</div>
                 <div class="product-title">Yamazaki Distiller’s Reserve</div>
@@ -230,7 +248,7 @@
             </div>
         </div>
         <div class="product-card">
-            <div class="product-img"><div class="img-placeholder">🔪🇩🇪</div></div>
+            <div class="product-img"><div class="img-placeholder">🔪</div></div>
             <div class="product-info">
                 <div class="badge">🇩🇪 Deutschland · Präzision</div>
                 <div class="product-title">Zwilling Pro 7-teiliges Messerset</div>
@@ -239,7 +257,7 @@
             </div>
         </div>
         <div class="product-card">
-            <div class="product-img"><div class="img-placeholder">🌸🇫🇷</div></div>
+            <div class="product-img"><div class="img-placeholder">🌸</div></div>
             <div class="product-info">
                 <div class="badge">🇫🇷 Frankreich · Nische</div>
                 <div class="product-title">Grasse Private Collection Extrait</div>
@@ -248,7 +266,7 @@
             </div>
         </div>
         <div class="product-card">
-            <div class="product-img"><div class="img-placeholder">⌚🇺🇸</div></div>
+            <div class="product-img"><div class="img-placeholder">⌚</div></div>
             <div class="product-info">
                 <div class="badge">🇺🇸 USA · Vintage</div>
                 <div class="product-title">Bulova Lunar Pilot</div>
@@ -257,7 +275,7 @@
             </div>
         </div>
         <div class="product-card">
-            <div class="product-img"><div class="img-placeholder">🕌🇹🇷</div></div>
+            <div class="product-img"><div class="img-placeholder">🕌</div></div>
             <div class="product-info">
                 <div class="badge">🇹🇷 Türkei · Anatolisch</div>
                 <div class="product-title">Kappadokien Wolle-Kilim</div>
