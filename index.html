@@ -10,175 +10,206 @@
             background-color: #000;
             color: #00ff00;
             font-family: 'Press Start 2P', 'Courier New', monospace;
-            font-size: 14px;
+            font-size: clamp(10px, 2vw, 14px);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
             padding: 10px;
+            box-sizing: border-box;
         }
         #terminal-container {
-            width: 90%;
-            max-width: 700px;
+            width: 94%;
+            max-width: 1000px;
         }
         #terminal {
+            max-height: 80vh;
+            overflow-y: auto;
             white-space: pre-wrap;
-            word-wrap: break-word;
+            overflow-wrap: anywhere;
+            line-height: 1.8;
         }
-        .cursor {
-            display: inline-block;
-            width: 8px;
-            height: 16px;
-            background-color: #00ff00;
-            animation: blink 1s infinite;
-            vertical-align: middle;
+        .command-line {
+            display: flex;
+            align-items: baseline;
         }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+        .prompt {
+            flex: 0 0 auto;
+            margin-right: 0.6em;
         }
-        .command {
-            color: #00ff00;
+        #command-input {
+            flex: 1;
+            min-width: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            color: inherit;
+            caret-color: #00ff00;
+            font: inherit;
         }
         .response {
-            margin-bottom: 25px;
-            line-height: 1.8; 
+            margin: 0 0 1.5em;
         }
-        .response p {
-            margin-bottom: 12px;
-        』
-        .hidden {
-            display: none;
+        .response.error {
+            color: #ff6666;
         }
     </style>
 </head>
 <body>
-    <div id="terminal-container">
-        <div id="terminal">
+    <main id="terminal-container">
+        <div id="terminal" aria-live="polite">
+            <div id="history"></div>
+            <div class="command-line">
+                <span class="prompt" id="prompt">$</span>
+                <input id="command-input" type="text" aria-label="输入命令" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus>
+            </div>
         </div>
-    </div>
+    </main>
 
     <script>
-        const now = new Date();
-        const formattedTime = now.toLocaleString('en-US', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-        });
-        const commands = [
-            {
-                cmd: "$ date",
-                response: `
-> ${formattedTime}
-                `,
-                delay: 50
+        const fileSystem = {
+            'ABOUTME.txt': {
+                type: 'file',
+                content: `REAL NAME: YUJIA WEI, YOU CAN ALSO CALL ME PEQIII/Q1AN_W
+NETEASE CLOUDMUSIC: STRAWBERRY_LIME
+SKILLS: PYTHON | C/C++ | WEB SECURITY | REVERSE ENGINEERING
+CURRENT DREAM: MY FAMILY HAS ALWAYS BEEN HEALTHY, AND I WILL BE ENTERING THE CYBERSECURITY PROGRAM AT UNIVERSITY OF ....
+I USE ARCH BTW (QwQ)`
             },
-            {
-                cmd: "$ WHOAMI",
-                response: `
->" WELCOME WELCOME, MY NAME IS PEQIII, A POET BETWEEN 0 AND 1"
-                `,
-                delay: 50
+            'PROJECT EXPERIENCE.txt': {
+                type: 'file',
+                content: `DEVICE PORT SCANNER (C++, QT CREATOR)
+APESS (SWITCH NETWORK SNIFFER SYSTEM, PYTHON, QT FOR PYTHON)
+2024 HVV (CHINA CYBERSECURITY ACTION, CHINA RESOURCE COMPANY, BEIJING)`
             },
-            {
-                cmd: "$ cat ABOUTME.txt",
-                response: `
-> REAL NAME: YUJIA WEI , YOU CAN ALSO CALL ME PEQIII/Q1AN_W
-> NETEASY CLOUDMUSIC: STRAWBERRY_LIME
-> SKILLS: PYTHON | C/C++ | WEB SECURITY | REVERSE ENGINEERING
-> CURRENT DREAM: MY FAMILY HAS ALWAYS BEEN HEALTHY, AND I WILL BE ENTERING THE CYBERSECURITY PROGRAM AT UNIVERSITY OF ....
-> I USE ARCH BTW (QwQ)
-                `,
-                delay: 50
+            'interests': {
+                type: 'directory',
+                contents: {
+                    'INTERESTS.txt': {
+                        type: 'file',
+                        content: `CYBER SECURITY
+FPV aircraft
+CTF
+MUSIC`
+                    }
+                }
             },
-            {
-                cmd: "$ cat PROJECT EXPERIENCE.txt",
-                response: `
-> DEVICE PORT SCANNER(C++, QT CREATER)
-> APESS(SWITCH NETWORK SNIFFER SYSTEM, PYTHON, QT FOR PYTHON)
-> 2024 HVV(CHINA CYBERSECURITY ACTION, CHINA RESOURCE COMPANY, BEIJING)
-                `,
-                delay: 50
-            },
-            {
-                cmd: "$ find /interests/",
-                response: `
-> /interests/CYBER SECURITY
-> /interests/FPV aircraft
-> /interests/CTF
-> /interests/MUSIC
-                `,
-                delay: 50
-            },
-            {
-                cmd: "$ contact --social",
-                response: `
-> GITHUB: HTTPS://GITHUB.COM/PEQIII
-> TWITTER: I DID'T HAVE THIS YET, MAY BE IN THE NEXT YEAR
-> EMAIL: weiyujiazhanghu@hotmail.com
-                `,
-                delay: 50
+            'contact.txt': {
+                type: 'file',
+                content: `GITHUB: https://github.com/Peqiii
+TWITTER: I DIDN'T HAVE THIS YET, MAY BE IN THE NEXT YEAR
+EMAIL: weiyujiazhanghu@hotmail.com`
             }
-        ];
+        };
 
+        const history = document.getElementById('history');
+        const input = document.getElementById('command-input');
+        const prompt = document.getElementById('prompt');
         const terminal = document.getElementById('terminal');
-        let currentCommand = 0;
-        let currentStep = 'command';
-        let currentChar = 0;
-        let currentElement = null;
+        let currentDirectory = [];
 
-        function typeWriter() {
-            if (currentCommand >= commands.length) {
-                terminal.innerHTML += `<div><span class="command">$ _</span><span class="cursor"></span></div>`;
-                return;
-            }
-
-            const command = commands[currentCommand];
-
-            if (currentStep === 'command') {
-                if (currentChar === 0) {
-                    currentElement = document.createElement('div');
-                    const cmdElement = document.createElement('span');
-                    cmdElement.className = 'command';
-                    currentElement.appendChild(cmdElement);
-                    terminal.appendChild(currentElement);
-                }
-
-                if (currentChar < command.cmd.length) {
-                    currentElement.querySelector('.command').textContent += command.cmd.charAt(currentChar);
-                    currentChar++;
-                    setTimeout(typeWriter, 50);
-                } else {
-                    currentStep = 'response';
-                    currentChar = 0;
-                    const responseElement = document.createElement('div');
-                    responseElement.className = 'response';
-                    currentElement.appendChild(responseElement);
-                    setTimeout(typeWriter, 300);
-                }
-            } else {
-                const responseElement = currentElement.querySelector('.response');
-                
-                if (currentChar < command.response.length) {
-                    responseElement.textContent += command.response.charAt(currentChar);
-                    currentChar++;
-                    setTimeout(typeWriter, command.delay);
-                } else {
-                    currentCommand++;
-                    currentStep = 'command';
-                    currentChar = 0;
-                    setTimeout(typeWriter, 500);
-                }
-            }
+        function getDirectory() {
+            return currentDirectory.reduce((directory, name) => directory.contents[name], { contents: fileSystem });
         }
 
-        window.onload = function() {
-            typeWriter();
-        };
+        function updatePrompt() {
+            prompt.textContent = currentDirectory.length ? `~/${currentDirectory.join('/')} $` : '$';
+        }
+
+        function tokenize(command) {
+            return command.match(/"([^"]*)"|'([^']*)'|[^\s]+/g)?.map((part) => {
+                if ((part.startsWith('"') && part.endsWith('"')) || (part.startsWith("'") && part.endsWith("'"))) {
+                    return part.slice(1, -1);
+                }
+                return part;
+            }) ?? [];
+        }
+
+        function runCommand(rawCommand) {
+            const command = rawCommand.trim();
+            if (!command) return '';
+
+            const args = tokenize(command);
+            const name = args[0].toLowerCase();
+            const argument = args.slice(1).join(' ');
+            const directory = getDirectory();
+
+            if (command.toLowerCase().split(/\s+/).join(' ') === 'who are you' || name === 'whoami') {
+                return '"WELCOME WELCOME, MY NAME IS PEQIII, A POET BETWEEN 0 AND 1"';
+            }
+            if (name === 'ls') {
+                return Object.entries(directory.contents)
+                    .map(([entryName, entry]) => entry.type === 'directory' ? `${entryName}/` : entryName)
+                    .join('\n') || '(empty directory)';
+            }
+            if (name === 'cat') {
+                if (!argument) return 'Usage: cat <file>';
+                const file = directory.contents[argument];
+                if (!file) return `cat: ${argument}: No such file`;
+                if (file.type === 'directory') return `cat: ${argument}: Is a directory`;
+                return file.content;
+            }
+            if (name === 'cd' || name === 'cd..') {
+                const destination = name === 'cd..' ? '..' : argument;
+                if (!destination || destination === '/') {
+                    if (!destination) return 'Usage: cd <directory>';
+                    currentDirectory = [];
+                    updatePrompt();
+                    return '';
+                }
+                if (destination === '..') {
+                    currentDirectory.pop();
+                    updatePrompt();
+                    return '';
+                }
+
+                const path = destination.replace(/^~\/?/, '').split('/').filter(Boolean);
+                let nextDirectory = destination.startsWith('/') ? [] : [...currentDirectory];
+                for (const part of path) {
+                    if (part === '..') {
+                        nextDirectory.pop();
+                        continue;
+                    }
+                    const parent = nextDirectory.reduce((current, name) => current.contents[name], { contents: fileSystem });
+                    const entry = parent.contents[part];
+                    if (!entry || entry.type !== 'directory') return `cd: ${part}: No such directory`;
+                    nextDirectory.push(part);
+                }
+                currentDirectory = nextDirectory;
+                updatePrompt();
+                return '';
+            }
+            return `${args[0]}: command not found`;
+        }
+
+        function submitCommand() {
+            const rawCommand = input.value;
+            const line = document.createElement('div');
+            line.textContent = `${prompt.textContent} ${rawCommand}`;
+            history.appendChild(line);
+
+            const result = runCommand(rawCommand);
+            if (result) {
+                const output = document.createElement('pre');
+                output.className = 'response';
+                if (result.includes('command not found') || result.startsWith('cat:') || result.startsWith('cd:') || result.startsWith('Usage:')) {
+                    output.classList.add('error');
+                }
+                output.textContent = result;
+                history.appendChild(output);
+            }
+
+            input.value = '';
+            terminal.scrollTop = terminal.scrollHeight;
+            input.focus();
+        }
+
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') submitCommand();
+        });
+        document.addEventListener('click', () => input.focus());
     </script>
 </body>
 </html>
