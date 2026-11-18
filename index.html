@@ -51,6 +51,9 @@
         }
         .response {
             margin: 0 0 1.5em;
+            font: inherit;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
         }
         .response.error {
             color: #ff6666;
@@ -60,9 +63,28 @@
 <body>
     <main id="terminal-container">
         <div id="terminal" aria-live="polite">
-            <div id="history"></div>
+            <div id="history">
+             ...@@@....
+           ..@@@@@@@@@@..
+          .@@@@........@@.
+          .@@@..........@@.
+          .@..(**)..(**).@.
+          .........O......
+           ...............
+           .....\___/....
+           .@@............
+         ..@@..@@..@@@@@@.  ..
+     ...@@@.....@@@@@@....... ..
+  ..@@@@..........@@...............
+ .@@@..........@.......@@.........@@@.
+.@@............@@@........@@........@@.
+@@.................@.....@@@@@.......@@
+.....................................@@.
+.................@....................@@
+!!!!!!!!WELLCOME TO Q1an_WLinux!!!!!!!!
+            </div>
             <div class="command-line">
-                <span class="prompt" id="prompt">$</span>
+                <span class="prompt" id="prompt">PS Q1an_WLinux ›</span>
                 <input id="command-input" type="text" aria-label="输入命令" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus>
             </div>
         </div>
@@ -115,7 +137,9 @@ EMAIL: weiyujiazhanghu@hotmail.com`
         }
 
         function updatePrompt() {
-            prompt.textContent = currentDirectory.length ? `~/${currentDirectory.join('/')} $` : '$';
+            prompt.textContent = currentDirectory.length
+                ? `PS Q1an_WLinux ~/${currentDirectory.join('/')} ›`
+                : 'PS Q1an_WLinux ›';
         }
 
         function tokenize(command) {
@@ -136,7 +160,7 @@ EMAIL: weiyujiazhanghu@hotmail.com`
             const argument = args.slice(1).join(' ');
             const directory = getDirectory();
 
-            if (command.toLowerCase().split(/\s+/).join(' ') === 'who are you' || name === 'whoami') {
+            if (command.toLowerCase().split(/\s+/).join(' ') === 'who are you') {
                 return '"WELCOME WELCOME, MY NAME IS PEQIII, A POET BETWEEN 0 AND 1"';
             }
             if (name === 'ls') {
