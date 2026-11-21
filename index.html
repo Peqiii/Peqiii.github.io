@@ -29,6 +29,19 @@
             white-space: pre-wrap;
             overflow-wrap: anywhere;
             line-height: 1.8;
+            scrollbar-width: thin;
+            scrollbar-color: #00ff00 transparent;
+        }
+        #terminal::-webkit-scrollbar {
+            width: 10px;
+        }
+        #terminal::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        #terminal::-webkit-scrollbar-thumb {
+            background: #000;
+            border: 1px solid #00ff00;
+            border-radius: 0;
         }
         .command-line {
             display: flex;
